@@ -22,8 +22,9 @@ jobs:
     - name: Build EXE
       run: pyinstaller --onefile project.py
 
-    - name: Upload EXE
-      uses: actions/upload-artifact@v3
-      with:
-        name: data-converter-exe
-        path: dist/project.exe
+   - name: Upload EXE
+  uses: actions/upload-artifact@v3
+  with:
+    name: data-converter-exe
+    path: dist/project.exe
+
