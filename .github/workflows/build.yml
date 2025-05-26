@@ -1,0 +1,29 @@
+name: Build EXE
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Python and dependencies
+      run: |
+        python -m pip install --upgrade pip
+        powershell ./installResources.ps1
+
+    - name: Build EXE
+      run: pyinstaller --onefile project.py
+
+    - name: Upload EXE
+      uses: actions/upload-artifact@v3
+      with:
+        name: data-converter-exe
+        path: dist/project.exe
